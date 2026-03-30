@@ -19,6 +19,8 @@ from textual.widgets import (
 from textual.containers import Horizontal, ScrollableContainer, Vertical
 from textual import on
 
+import re
+
 from core.questions import load_questions
 from core.logger import log
 
@@ -68,7 +70,8 @@ class SurveyScreen(Screen):
 
             if multi:
                 for opt in options:
-                    safe_opt = opt.replace(" ", "_").replace("'", "").replace("/", "_")
+                    # Remplace tout caractère non alphanumérique par "_" (IDs Textual : [a-zA-Z0-9_-] uniquement)
+                    safe_opt = re.sub(r"[^a-zA-Z0-9]", "_", opt)
                     children.append(Checkbox(opt, id=f"chk_{q_id}_{safe_opt}"))
             else:
                 buttons = [RadioButton(opt) for opt in options]
@@ -104,7 +107,7 @@ class SurveyScreen(Screen):
                     # Récupère toutes les checkboxes cochées pour cette question
                     selected: list[str] = []
                     for opt in q.get("options", []):
-                        safe_opt = opt.replace(" ", "_").replace("'", "").replace("/", "_")
+                        safe_opt = re.sub(r"[^a-zA-Z0-9]", "_", opt)
                         try:
                             chk = self.query_one(f"#chk_{q_id}_{safe_opt}", Checkbox)
                             if chk.value:
