@@ -89,8 +89,9 @@ class WelcomeScreen(Screen):
             return
 
         if not check_ollama_available():
+            from ui.screens.error_screen import ErrorScreen
             self.app.push_screen(
-                __import__("ui.screens.error_screen", fromlist=["ErrorScreen"]).ErrorScreen(
+                ErrorScreen(
                     "Ollama est hors ligne.\n\nLancez Ollama avec :\n  ollama serve\n\n"
                     f"Et assurez-vous que le modèle '{OLLAMA_MODEL}' est disponible :\n"
                     f"  ollama pull {OLLAMA_MODEL}"

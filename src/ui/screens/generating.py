@@ -91,6 +91,7 @@ class GeneratingScreen(Screen):
             log.error("Erreur sauvegarde : %s", exc)
 
         from ui.screens.result import ResultScreen
+        # switch_screen remplace l'écran courant (generating) sans empiler
         self.app.switch_screen(ResultScreen(project))
 
     def _on_error(self, message: str) -> None:
@@ -102,6 +103,5 @@ class GeneratingScreen(Screen):
 
     @on(Button.Pressed, "#btn_cancel")
     def action_cancel(self) -> None:
-        """Annule et revient à l'accueil (le thread daemon s'arrête avec l'UI)."""
+        """Annule et revient au survey (un seul pop)."""
         self.app.pop_screen()
-        self.app.pop_screen()  # Revient à l'accueil depuis le survey

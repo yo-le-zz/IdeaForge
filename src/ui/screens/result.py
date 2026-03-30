@@ -54,9 +54,13 @@ class ResultScreen(Screen):
 
     @on(Button.Pressed, "#btn_again")
     def action_again(self) -> None:
-        """Relance le formulaire sans repasser par l'accueil."""
+        """Pop result+generating+survey, puis push un nouveau survey."""
+        # La pile est : welcome > survey > generating > result (switch)
+        # result a remplacé generating via switch_screen, donc pile : welcome > survey > result
+        # On pop result (retour survey), puis on switch survey par un nouveau
+        self.app.pop_screen()   # → retour sur survey
         from ui.screens.survey import SurveyScreen
-        self.app.switch_screen(SurveyScreen())
+        self.app.switch_screen(SurveyScreen())  # remplace le vieux survey
 
     @on(Button.Pressed, "#btn_projects")
     def action_projects(self) -> None:
@@ -65,6 +69,7 @@ class ResultScreen(Screen):
 
     @on(Button.Pressed, "#btn_home")
     def action_home(self) -> None:
-        """Vide la pile et revient à l'accueil."""
-        from ui.screens.welcome import WelcomeScreen
-        self.app.switch_screen(WelcomeScreen())
+        """Revient à l'accueil en vidant toute la pile sauf welcome."""
+        # Pile actuelle : welcome > survey > result
+        self.app.pop_screen()  # pop result → survey
+        self.app.pop_screen()  # pop survey → welcome

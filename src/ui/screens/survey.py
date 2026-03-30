@@ -55,40 +55,35 @@ class SurveyScreen(Screen):
 
     def _build_question_widget(self, idx: int, q: dict) -> Vertical:
         """Construit le widget adapté au type de question."""
-        q_id   = q["id"]
-        texte  = q["texte"]
-        type_  = q["type"]
-        widget_id = f"widget_{q_id}"
+        q_id  = q["id"]
+        texte = q["texte"]
+        type_ = q["type"]
 
-        container = Vertical(classes="card", id=widget_id)
+        # Rassemble les enfants dans une liste ordinaire
+        children: list = [Label(f"{idx}. {texte}", classes="section-title")]
 
-        # Titre de la question
-        with container:
-            yield Label(f"{idx}. {texte}", classes="section-title")
+        if type_ == "choix":
+            options = q.get("options", [])
+            multi   = q.get("multi", False)
 
-            if type_ == "choix":
-                options = q.get("options", [])
-                multi   = q.get("multi", False)
+            if multi:
+                for opt in options:
+                    safe_opt = opt.replace(" ", "_").replace("'", "").replace("/", "_")
+                    children.append(Checkbox(opt, id=f"chk_{q_id}_{safe_opt}"))
+            else:
+                buttons = [RadioButton(opt) for opt in options]
+                children.append(RadioSet(*buttons, id=f"radio_{q_id}"))
 
-                if multi:
-                    # Checkboxes (choix multiples)
-                    for opt in options:
-                        safe_opt = opt.replace(" ", "_").replace("'", "")
-                        yield Checkbox(opt, id=f"chk_{q_id}_{safe_opt}")
-                else:
-                    # RadioSet (choix unique)
-                    buttons = [RadioButton(opt, id=f"rb_{q_id}_{i}") for i, opt in enumerate(options)]
-                    yield RadioSet(*buttons, id=f"radio_{q_id}")
+        elif type_ == "texte":
+            max_len = q.get("max_length", 200)
+            children.append(Input(
+                placeholder=f"Votre réponse (max {max_len} caractères)…",
+                max_length=max_len,
+                id=f"inp_{q_id}",
+            ))
 
-            elif type_ == "texte":
-                max_len = q.get("max_length", 200)
-                yield Input(
-                    placeholder=f"Votre réponse (max {max_len} caractères)…",
-                    max_length=max_len,
-                    id=f"inp_{q_id}",
-                )
-
-        return container
+        # On passe les enfants directement au constructeur Vertical
+        return Vertical(*children, classes="card", id=f"widget_{q_id}")
 
     # ── Collecte des réponses ────────────────────────────────────────────────
 
@@ -109,7 +104,7 @@ class SurveyScreen(Screen):
                     # Récupère toutes les checkboxes cochées pour cette question
                     selected: list[str] = []
                     for opt in q.get("options", []):
-                        safe_opt = opt.replace(" ", "_").replace("'", "")
+                        safe_opt = opt.replace(" ", "_").replace("'", "").replace("/", "_")
                         try:
                             chk = self.query_one(f"#chk_{q_id}_{safe_opt}", Checkbox)
                             if chk.value:
