@@ -47,7 +47,7 @@ class SurveyScreen(Screen):
             for idx, q in enumerate(self._questions, 1):
                 yield self._build_question_widget(idx, q)
 
-        with Horizontal(classes="toolbar"):
+        with Horizontal(id="survey_toolbar"):
             yield Button("← Annuler", id="btn_cancel")
             yield Button("✨ Générer l'idée", id="btn_generate", classes="primary")
 

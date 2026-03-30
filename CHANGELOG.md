@@ -33,6 +33,10 @@ Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
 - `generating.py` — `_on_success` utilise `switch_screen` au lieu d'empiler un écran supplémentaire
 - `result.py` — bouton "Accueil" effectue deux `pop_screen()` successifs pour vider proprement la pile (result → survey → welcome)
 - `result.py` — bouton "Générer une autre idée" pop d'abord le result puis switch le survey pour éviter une pile infinie
+- `app.py` — ajout de `height: auto` manquant sur la majorité des widgets (`.card`, `.title`, `.subtitle`, `Checkbox`, `RadioButton`, `RadioSet`, `ListItem`, etc.) causant un écrasement du contenu et des cases à cocher non cliquables
+- `app.py` — `.toolbar` renommée en `#survey_toolbar` avec `height: 5` et `padding: 1 2` pour éviter les conflits entre écrans et corriger les boutons coupés
+- `survey.py` — toolbar du survey utilise désormais `#survey_toolbar` au lieu de la classe générique `.toolbar`
+- `app.py` — `#survey_scroll` fixé à `height: 1fr` pour occuper correctement l'espace entre le titre et la toolbar
 
 ---
 

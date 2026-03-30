@@ -46,6 +46,7 @@ class IdeaForgeApp(App):
     Screen {
         background: $bg;
         color: $text;
+        layers: base overlay;
     }
 
     /* ── Titres / labels ─────────────────────────────────────────────── */
@@ -53,36 +54,44 @@ class IdeaForgeApp(App):
         text-style: bold;
         color: $accent;
         text-align: center;
+        height: auto;
         margin-bottom: 1;
     }
     .subtitle {
         color: $text-muted;
         text-align: center;
-        margin-bottom: 2;
+        height: auto;
+        margin-bottom: 1;
     }
     .section-title {
         text-style: bold;
         color: $accent2;
-        margin: 1 0;
+        height: auto;
+        margin: 0 0 1 0;
     }
     .muted {
         color: $text-muted;
+        height: auto;
     }
     .success {
         color: $accent2;
         text-style: bold;
+        height: auto;
     }
     .error {
         color: $error;
         text-style: bold;
+        height: auto;
     }
     .warn {
         color: $warn;
+        height: auto;
     }
 
     /* ── Boutons ─────────────────────────────────────────────────────── */
     Button {
         margin: 0 1;
+        height: 3;
     }
     Button.primary {
         background: $accent;
@@ -104,6 +113,7 @@ class IdeaForgeApp(App):
         background: $surface;
         border: solid $border;
         color: $text;
+        height: 3;
     }
     Input:focus {
         border: solid $accent;
@@ -127,6 +137,7 @@ class IdeaForgeApp(App):
     ListItem {
         color: $text;
         padding: 0 1;
+        height: auto;
     }
     ListItem:hover {
         background: $border;
@@ -141,29 +152,52 @@ class IdeaForgeApp(App):
         background: $surface;
         border: solid $border;
         padding: 1 2;
-        margin: 1 0;
+        margin: 0 0 1 0;
+        height: auto;
     }
     .toolbar {
-        height: 3;
+        height: 5;
         dock: bottom;
         background: $surface;
         border-top: solid $border;
         align: center middle;
+        padding: 1 2;
     }
     .center {
         align: center middle;
+        height: auto;
     }
     .row {
         layout: horizontal;
         height: auto;
     }
 
+    /* ── Survey scroll ───────────────────────────────────────────────── */
+    #survey_scroll {
+        height: 1fr;
+        padding: 0 1;
+    }
+    #survey_toolbar {
+        height: 5;
+        dock: bottom;
+        background: $surface;
+        border-top: solid $border;
+        align: center middle;
+        padding: 1 2;
+    }
+
     /* ── Checkbox ────────────────────────────────────────────────────── */
     Checkbox {
         background: $bg;
         color: $text;
+        height: auto;
+        padding: 0 1;
+        margin: 0;
     }
     Checkbox:focus {
+        background: $surface;
+    }
+    Checkbox:hover {
         background: $surface;
     }
 
@@ -172,20 +206,29 @@ class IdeaForgeApp(App):
         background: $bg;
         border: solid $border;
         padding: 0 1;
+        height: auto;
     }
     RadioButton {
         color: $text;
+        height: auto;
+        padding: 0 1;
+        margin: 0;
+    }
+    RadioButton:hover {
+        background: $surface;
     }
 
     /* ── Select ──────────────────────────────────────────────────────── */
     Select {
         background: $surface;
         border: solid $border;
+        height: auto;
     }
 
     /* ── ProgressBar ─────────────────────────────────────────────────── */
     ProgressBar {
         color: $accent;
+        height: auto;
     }
 
     /* ── Footer ──────────────────────────────────────────────────────── */
