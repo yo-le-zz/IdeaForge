@@ -1,0 +1,65 @@
+[
+  {
+    "id": "q_domaine",
+    "texte": "Dans quel domaine veux-tu créer un projet ?",
+    "type": "choix",
+    "options": [
+      "Web / API",
+      "Jeu vidéo",
+      "Outil CLI",
+      "Application desktop",
+      "IA / Machine Learning",
+      "Mobile",
+      "Système / Infrastructure",
+      "Autre"
+    ],
+    "multi": false
+  },
+  {
+    "id": "q_langage",
+    "texte": "Quels langages de programmation maîtrises-tu ou veux-tu utiliser ?",
+    "type": "choix",
+    "options": [
+      "Python",
+      "JavaScript / TypeScript",
+      "Rust",
+      "Go",
+      "C / C++",
+      "Java / Kotlin",
+      "C#",
+      "Autre"
+    ],
+    "multi": true
+  },
+  {
+    "id": "q_difficulte",
+    "texte": "Quel niveau de difficulté souhaites-tu pour ce projet ?",
+    "type": "choix",
+    "options": [
+      "Débutant (quelques jours)",
+      "Intermédiaire (quelques semaines)",
+      "Avancé (1-3 mois)",
+      "Expert (3 mois+)"
+    ],
+    "multi": false
+  },
+  {
+    "id": "q_motivation",
+    "texte": "Quelle est ta principale motivation pour ce projet ?",
+    "type": "choix",
+    "options": [
+      "Apprendre une nouvelle technologie",
+      "Résoudre un problème personnel",
+      "Portfolio / CV",
+      "Open Source / Communauté",
+      "Projet commercial"
+    ],
+    "multi": false
+  },
+  {
+    "id": "q_contrainte",
+    "texte": "As-tu des contraintes particulières ou des thèmes qui t'inspirent ?",
+    "type": "texte",
+    "max_length": 300
+  }
+]

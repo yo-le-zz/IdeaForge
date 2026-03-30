@@ -1,0 +1,4 @@
+# IdeaForge — Dépendances Python
+# Installez avec : pip install -r requirements.txt
+
+textual>=0.52.0
